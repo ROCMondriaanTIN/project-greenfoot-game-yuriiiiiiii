@@ -8,14 +8,14 @@ import greenfoot.*;
 public class Enemy extends Mover {
 
     private int walkRange;
-    private int xMin;
-    private int xMax;
+    private int yMin;
+    private int yMax;
     private boolean firstAct;
     private int speed;
 
     public Enemy() {
         super();
-        setImage("pokerMad.png");
+        setImage("kevin.png");
         getImage().mirrorHorizontally();
         walkRange = 140;
         firstAct = true;
@@ -24,24 +24,24 @@ public class Enemy extends Mover {
 
     @Override
     public void act() {
-        int x = getX();
         int y = getY();
+        int x = getX();
 
         if (firstAct) {
             firstAct = false;
-            xMin = x - walkRange / 2;
-            xMax = x + walkRange / 2;
+            yMin = y - walkRange / 2;
+            yMax = y + walkRange / 2;
         }
 
-        velocityX = speed;
+        velocityY = speed;
         applyVelocity();
-        if (getX() >= xMax) {
+        if (getY() >= yMax) {
             speed *= -1;
-            x = xMax;
+            y = yMax;
             getImage().mirrorHorizontally();
-        } else if (getX() <= xMin) {
+        } else if (getY() <= yMin) {
             speed *= -1;
-            x = xMin;
+            y = yMin;
             getImage().mirrorHorizontally();
         }
     }
