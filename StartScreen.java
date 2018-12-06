@@ -5,7 +5,7 @@ public class StartScreen extends Mover
 public StartScreen(){}
          public void act(){
    {
-    setImage("startscherm.png");
+    setImage("achtergrondgreenfoot.png");
    if(Greenfoot.isKeyDown("enter")){
    getWorld().removeObject(this);}
 }
