@@ -17,7 +17,7 @@ public class Hero extends Mover {
     public boolean keyBlueAdded = false;
     public boolean keyGreenAdded = false;
     public boolean keyRedAdded = false;
-    
+    public boolean  signExitadded = false;
     public boolean isDood;
     public int counter;
     private TileEngine tileEngine;
@@ -29,6 +29,9 @@ public class Hero extends Mover {
         acc = 2.6;
         drag = 0.8;
         setImage("p1.png");
+        keyRedAdded = false;
+        keyBlueAdded = false;
+        keyGreenAdded = false;
     }
     public void kill() {
         Greenfoot.playSound("dood.wav");
@@ -49,20 +52,18 @@ public class Hero extends Mover {
             }
             return;
         }
-        //System.out.println(getX());
-        //System.out.println(getY());
-        handleInput();
+       // System.out.println(getX());
+       // System.out.println(getY());
         GreenfootSound kevin = new GreenfootSound("kevin.wav");
-
+        handleInput();
         velocityX *= drag;
         velocityY += acc;
         if (velocityY > gravity) {
             velocityY = gravity;
         }
         applyVelocity();
-        System.out.println(keyGreenAdded);
+       // System.out.println(keyGreenAdded);
         if(keyGreenAdded){
-                
                 for (Tile tileLock : getWorld().getObjects(Tile.class)) {
                     if (tileLock.getImage().toString().contains("lock_green") ) {
                         tileEngine.removeTile(tileLock);
@@ -103,21 +104,19 @@ public class Hero extends Mover {
 
                 keyBlueAdded = true;
                 tileEngine.removeTile(tile);
-                return;
+                break;
             }
             if(tile.getImage().toString().contains("keyGreen")){
 
                 keyGreenAdded = true;
-                
-                System.out.println("test" );
                 getWorld().removeObject(tile);
-                return;
+                break;
             }
             if(tile.getImage().toString().contains("keyRed")){
 
                 keyRedAdded = true;
                 getWorld().removeObject(tile);
-                return;
+                break;
             }
             
             if(tile.getImage().toString().contains("star")){
@@ -126,8 +125,13 @@ public class Hero extends Mover {
                 getWorld().removeObject(tile);
                 return;
             }
+            if(tile.getImage().toString().contains("signExit")){
+                signExitadded = true; 
+               Greenfoot.setWorld(new MyWorld2());
+             return;   
+            }
+                
            if(keyGreenAdded){
-                System.out.println(keyGreenAdded);
                 for (Tile tileLock : getWorld().getObjects(Tile.class)) {
                     if (tileLock.getImage().toString().contains("lock_green") ) {
                         tileEngine.removeTile(tileLock);
